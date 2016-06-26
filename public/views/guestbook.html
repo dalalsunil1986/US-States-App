@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="alert alert-success" ng-show="success===true">
+            <strong>Success!</strong> Thank you <b>{{user}}</b>. Your message is now saved on the guest book.
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-eye-open"></span>
+            Guest Book Messages
+            <!-- Invoke showModal() handler on click -->
+            <button type="button"
+              class="btn btn-success btn-xs pull-right"
+              ng-click="showGuestBookModal()">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </div>
+          <div class="panel-body">    
+            <div class="list-group">
+                <div class="list-group-item" ng-repeat="msg in msgs">
+                    <blockquote>
+                      <p><span class="hang-quote">“</span>{{msg.message}}”</p>
+                      <footer>{{msg.user}} <cite title="Source Title">( Phone: {{msg.phone}} )</cite></footer>
+                    </blockquote>
+                </div>               
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

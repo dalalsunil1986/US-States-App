@@ -1,0 +1,23 @@
+{
+  "name": "public",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "^1.4.0",
+    "bootstrap": "^3.2.0",
+    "angular-cookies": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "restangular": "^1.5.2",
+    "angular-paging": "^2.2.2",
+    "angular-strap": "^2.3.9"
+  },
+  "appPath": "public",
+  "moduleName": "publicApp",
+  "overrides": {
+    "bootstrap": {
+      "main": [        
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}

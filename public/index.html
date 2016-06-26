@@ -1,144 +1,113 @@
+<!doctype html>
 <html>
-  <head>
-    <title>Front End Developer Test</title>
-  </head>
-  <body>
-    <h1>Front End Developer Test</h1>
-    <h2>Introduction</h2>
-    This front end developer test is designed to test your expertise writing modern web applications. There are many ways to solve the problems presented in this test, so there's no single right answer.
-    <p>
-    You are to work on this assignment on your own computer. There is no time limit for this assignment, but it is not intended to take long to finish. You are welcome to use any and all resources on the web to create your application, but you must list any software you utilized, and you should not include any code you did not write in your source files.
-    <p>
-    This test should be treated like a small product that you would deliver to a customer. Therefore you should consider easy of use, features, and the
-    overall design of the application when building your application.
-    <p>
-    If you have any questions, please feel free to contact us and ask.
-    <p>
-    <h2>Installation</h2>
-    We use Github to hold the results of the test. If you don't have an account on Github, please create one. They are available for free.
-    <br>
-    We have created a node.js application that will act as your backend server. Please fork the repository to create your own version. Then proceed to use that to complete your work.
-    <p>
-    <ul>
-      <li>You must have node installed on your computer. Node.js is available from http://nodejs.org</li>
-      <li>Run <tt>npm install</tt> to install the required node dependencies</li>
-      <li>Run <tt>node server.js</tt> to run the server itself</li>
-      <li>You should see a message on the console indicating that the server is running</li>
-      <li>Pointing a web server at http://localhost:8888 should result in the instructions being displayed.</li>
-    </ul>
-    <h2>Endpoints</h2>
-    The server uses JSON as its data format. It responds to the following endpoints:
-    <p>
-    <dl>
-      <dt><b>POST /login</b></dt>
-      <dd>Login the user
-      <br>
-      <b>INPUT</b>
-      {"user": USERNAME, "password": PASSWORD}
-      <br>
-      <b>OUTPUT</b>
-      {"result": true} and a cookie is set
-      <br>
-      <b>RAISES</b> Error 401 for an incorrect login
+<head>
+  <meta charset="utf-8">
+  <title>U.S. States App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+</head>
+<body ng-app="publicApp" ng-controller="MainCtrl">
+    
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-      <dt><b>GET /logout</b></dt>
-      <dd>Logout the user
-      <br>
-      <b>OUTPUT</b>
-      Cookie is removed
+    <!-- Add your site or application content here -->   
+    <nav class="navbar navbar-inverse" role="navigation" ng-cloak>
+      <div class="container-fluid">
+        
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle"
+            data-toggle="collapse" data-target="#main-nav">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/#states">U.S. States App</a>
+        </div>
 
-      <dt><b>GET /states</b></dt>
-      <dd>Get data about the US states
-      <br>
-      <b>QUERY</b>
-      The following query parameters are supported:
-      <ul>
-        <li>sort can be any field in the states. Prefixing with a '-' character
-        will invert the order of the sort. Defaults to sorting by name.
-        <li>offset is an offset in to the sorted data. Defaults to 0.
-        <li>limit will return only that many states. Defaults to 10 and has a maxmimum value of 10.
-      </ul>
-      <br>
-      <b>OUTPUT</b>
-      An array of state objects containing:<br>
-      <ul>
-        <li>name
-        <li>abbreviation
-        <li>capital
-        <li>most-populous-city
-        <li>population
-        <li>square-miles
-        <li>time-zone-1
-        <li>time-zone-2
-        <li>dst
-      </ul>
+        <!-- Collect the nav links and other content for toggling -->
+        <div class="collapse navbar-collapse" id="main-nav">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- [2] Add active class to necessary item -->
+            <li ng-class="{active: activeView === 'states'}">
+              <a href="/#states">U.S. States</a>
+            </li>
+            <li ng-class="{active: activeView === 'guestbook'}">
+              <a href="/#guestbook">
+                Guest Book
+              </a>            
+            </li>
+            <li ng-class="{active: activeView === 'login'}">
+              <a href="/#login" ng-show="isLogged === false">
+                Login
+              </a> 
+              <a href="" ng-click="logOut()" ng-show="isLogged === true">
+                Logout
+              </a>              
+            </li>
+          </ul>
+        </div>
+        
+      </div><!-- /.container-fluid -->
+    </nav>   
+    
+    <div class="container-fluid" id="main">
+      <p ng-show="user">Hi, {{user}}</p>
+      
+      <div class="row">   
+       <div class="col-sm-8 col-sm-offset-2">
+        <div class="alert alert-danger" ng-show="!cookieTest">
+          <strong>Sorry!</strong> You need to enable your browser's cookie to use this application.
+        </div>
+       </div>
+      </div>
+      
+      <div ng-view=""></div>
 
-      <dt><b>GET /states/:abbreviation</b></dt>
-      <dd>Retrieve the state data for a single state.
-      <br>
-      <b>EXAMPLE</b>
-      /states/CA will return the data for California
-      <br>
-      <b>OUTPUT</b>
-      Same format as states
+      <div class="footer">
+        <p>Built by <a target="_blank" href="http://joecaps.com">Joel Capillo</a></p>
+      </div>
+    </div>
 
-      <dt><b>GET /states/abbreviations</b></dt>
-      <dd>Retrieve all the two letter state abbreviations
-      <br>
-      <b>OUTPUT</b>
-      An array of two letter strings ["AL", "AK", "AZ", ..., "WI", "WY"]
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
+    <script src="bower_components/angular-paging/dist/paging.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
-      <dt><b>GET /read</b></dt>
-      <dd>Get the list of messages left in a guest book
-      <br>
-      <b>OUTPUT</b>
-      {"user": USERNAME, "phone": PHONE, "message": MESSAGE}
-
-      <dt><b>POST /write</b></dt>
-      <dd>Add a message to the guest book.
-      <br>
-      <b>INPUT</b>
-      {"phone": PHONE-NUMBER, "message": MESSAGE}
-      <br>
-      <b>OUTPUT</b>
-      The same as /read
-      <br>
-      <b>RAISES</b> Error 401 if the user is not logged in.
-    </dl>
-
-    <h2>Users</h2>
-    There are four predefined users
-    <ul>
-      <li>alice with a password of password1</li>
-      <li>bob with a password of password2</li>
-      <li>charlie with a password of password3</li>
-      <li>dan with a password of password4</li>
-    </ul>
-
-    <h2>Assignment</h2>
-    Create a single page application using any javascript libraries you
-    prefer. The application should provide the following functionality.
-    <ul>
-      <li>The user should be able to login and logout of the application
-      <li>The user should be able to browse through the list of all 50 states
-      <li>The user should be display the details on any single state
-      <li>The user should be able to display all the messages in the guest book
-      <li>The user should be able to add his own message to the guest book.
-    </ul>
-    <p>
-    The application should be placed in the public directory of this project.
-    <p>
-    Please create a README file in your project and answer the following questions.
-    <h2>Questions</h2>
-    <p>
-    <h3>What URL should be used to access your application?</h3>
-    <h3>What libraries did you use to write your application?</h3>
-    <h3>What influenced the design of your user interface?</h3>
-    <h3>What steps did you take to make your application user friendly?</h3>
-    <h3>What steps did you take to insure your application was secure?</h3>
-    <h3>What could be done to the front end or back end to make it more secure?</h3>
-    <h2>Submitting</h2>
-    <p>
-    Submit your results to your Github repository. Then send us an email with the URL for your repository so that we can take a look.
-
-
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>    
+    <script src="scripts/controllers/states.js"></script>
+    <script src="scripts/controllers/guestbook.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <!--services -->
+    <script src="scripts/services/states.js"></script>
+    <script src="scripts/services/guestbook.js"></script>
+    <script src="scripts/services/authentication.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/services/cookie-tester.js"></script>
+    <script src="scripts/services/auth-interceptor.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

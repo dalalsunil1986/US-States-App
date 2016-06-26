@@ -1,0 +1,56 @@
+<div class="row"> 
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-list"></span>
+                U.S. States              
+            </div>
+            <div class="panel-body table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <th>
+                        <a href="" ng-click="sort('name')">
+                            Name 
+                            <span ng-show="sortType === 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType === 'name' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th>        
+                        <a href="" ng-click="sort('capital')">
+                           Capital
+                            <span ng-show="sortType === 'capital' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType === 'capital' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="population">        
+                        <a href="" ng-click="sort('population')">
+                            Population 
+                            <span ng-show="sortType === 'population' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType === 'population' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="state in states">
+                        <td>
+                            <a href="" ng-click="showStateModal(state.abbreviation)">{{ state.name }} ( {{ state.abbreviation }} )</a>
+                        </td>
+                        <td>
+                            {{ state.capital }}
+                        </td>
+                        <td class="population">
+                          {{ state.population }}
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div paging
+                    page=currentPage 
+                    page-size=pageSize 
+                    total=totalStates
+                    paging-action="redirectPage(page)">
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

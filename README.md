@@ -50,8 +50,8 @@ Answer:
      the ability to bookmark or maybe even share to someone for future reference. It's simple but powerful feature especially on a Single Page application.
  </li>
  <li>
-   I also consider other developers that might maintain this application as <b>user</b>. Since this is an AngularJs application, organization and structure of assets and files is highly important. I greatly take into account the maintainability and
-   and ease-of-use in development and also on deployment. One example is by using bower on managing the libraries used in the application. This is like the NPM in Node but with javascript libraries. I also used yeoman in building this application. In yeoman, you 
+   I also consider other developers that might maintain this application as <b>user</b>. Since this is an AngularJs application, organization and structure of assets and files are highly important. I greatly take into account the maintainability and
+   ease-of-use in development and also on deployment. One example is by using bower on managing the libraries used in the application. This is like the NPM in Node but with javascript libraries. I also used yeoman in building this application. In yeoman, you 
    can create Angular components thru the command line making all those repetitive/boring tasks automated thus making a developer efficient.
  </li>
 </ol>
@@ -61,14 +61,14 @@ Answer:
   <li>
       Implement an Authentication Interceptor service that is available application-wide. This is an Angular Service that keep tracks of all responses from the server. 
       Example, say if it happened that the server returned a 401 on a specific request and a user cookie is still set on the browser, 
-      the application will log-out the user immediately by deleting the cookie and set necessary flags back to Not Authenticated and also redirect the user to the log-in page.
+      the application will log-out the user immediately by deleting the cookie and set necessary flags back to Unauthenticated at the same time, redirect the user to the log-in page.
       Adding new features for authenticated user in the future is right away protected. 
   </li>
   <li>
-     Implement a per AngularJs route access flag that has an object value. The value of that object will determine if a user needs to be authenticated or not to access that route. Setting the object's value to true will make that route available to authenticated users only.
+     Implement a per AngularJs route access flag that has an object value. The value of that object will determine if a user needs to be authenticated or not to access that route. Setting the object's value to true will make a single route available to authenticated users only.
   </li>
   <li>
-    By using AngularJs, it automatically escapes data through ng-bind or the {{ curly brace syntax }}. This means it outputs the literal characters instead of interpreting them as HTML.
+    XSS protection through AngularJs. The framework automatically escapes data through ng-bind or the {{ curly brace syntax }}. This means it outputs the literal characters instead of interpreting them as HTML.
   </li>
 </ol>
 <h3>What could be done to the front end or back end to make it more secure?</h3>
@@ -77,18 +77,24 @@ Answer:
 </p>
 <ol>
   <li>
-     Require a secure connection using https. Tell the browser to only send the cookie if the request is being sent over HTTPS.
+     Require a secure connection using HTTPS. Tell the browser to only send the cookie if the request is being sent over HTTPS.
+  </li>
+  <li>
+     Implement rate limiting on the back end to prevent from brute force attack.
   </li>
   <li>
      Separate the server side API using CORS. 
   </li>
   <li>
-     Use token-based authentication JWT instead of cookie or session. 
+     Sanitize data on the back end by using filter/sanitizer. 
   </li>
   <li>
-    Configure front and back end to pass CSRF token on forms submission, etc. In Node.js to mitigate this kind of attacks we can use the csrf module 
+     Use token-based authentication (JWT) instead of cookie or session. 
   </li>
   <li>
-    Configure back-end to set the path argument for cookie to a specific path. The default value of "/" means every request will get the cookie, while "/forums/" would limit the cookie to just that path.
+    Configure front and back end to pass CSRF token on forms submission, etc.
+  </li>
+  <li>
+    Configure back end to set the path argument for cookie to a specific limited path. The default value of "/" means every request will get the cookie, while "/forums/" would limit the cookie to just that path.
   </li>
 </ol>

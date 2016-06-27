@@ -8,7 +8,7 @@
  * Controller of the publicApp
  */
 angular.module('publicApp')
-  .controller('LoginCtrl', function ($scope, UserService, $location, $rootScope, $timeout,$document,CookieTest,AuthenticationService) {
+  .controller('LoginCtrl', function ($scope, UserService, $location, $rootScope, $timeout,$document,CookieTest) {
         $scope.error = false;
         $scope.cookieTest = CookieTest.cookie_enabled;
         

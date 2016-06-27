@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('MainCtrl', function ($scope, $location, $cookies, UserService, $rootScope, CookieTest) {
+  .controller('MainCtrl', function ($scope, $location, UserService, $rootScope, CookieTest) {
     
     //check user's browser on page load if cookie is enabled
     $scope.cookieTest = CookieTest.testBrowserForCookie('test','test');

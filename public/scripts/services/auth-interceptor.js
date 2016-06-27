@@ -11,6 +11,7 @@ angular.module('publicApp')
             if (rejection !== null && rejection.status === 401 && ($cookies.get('login') || AuthenticationService.isLogged)) {
                 $cookies.remove('login');
                 AuthenticationService.isLogged = false;                
+                AuthenticationService.user = null;                
                 $location.path("/login");
             }
  

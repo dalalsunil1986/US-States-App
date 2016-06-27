@@ -62,7 +62,7 @@ angular
       });
   })  
  .run(function($rootScope, $location, AuthenticationService, $cookies,$document) {
-    $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+    $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {        
         if (nextRoute.access.requiredLogin && !$cookies.get('login') && !AuthenticationService.user) {            
             AuthenticationService.isLogged = false;
             //store the referrer page for redirect

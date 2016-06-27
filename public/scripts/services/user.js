@@ -7,8 +7,13 @@ angular.module('publicApp')
             var oThis = this;
             if (username !== undefined && password !== undefined) {                             
                 Restangular.all('login').post({user: username, password: password}).then(function(result) {                  
-                    AuthenticationService.isLogged = true;                   
-                    callback(result);                       
+                    AuthenticationService.isLogged = true;
+                    //get the user's info once authenticated
+                    oThis.getUser(function(result){
+                        AuthenticationService.user = result.user;
+                        callback(result);   
+                    });
+                                        
                 },function (result) {                   
                     callback(result);
                 });                 

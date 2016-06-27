@@ -14,10 +14,10 @@ angular.module('publicApp')
         
         $scope.logIn = function logIn(username, password) {            
             UserService.logIn(username, password, function(res){
-                if(res.status !== 401){
+                if(res.status !== 401){                 
                   var referrer = $document.referrer,
-                  params = $document.params;                  
-                  $rootScope.$emit('rootScope:emit', res); // emit the result to update navbar headers
+                  params = $document.params;
+                  $rootScope.$emit('rootScope:emit', 'authenticated - login'); // notify the main controller
                   $scope.error = false;
                   //set back referrer data to original values
                   $document.referrer = null;

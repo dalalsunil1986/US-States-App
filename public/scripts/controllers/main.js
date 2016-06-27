@@ -1,20 +1,13 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('MainCtrl', function ($scope, $location, UserService, $rootScope, CookieTest) {
+  .controller('MainCtrl', function ($scope, $location, UserService, $rootScope, CookieTest, AuthenticationService) {
     
     //check user's browser on page load if cookie is enabled
     $scope.cookieTest = CookieTest.testBrowserForCookie('test','test');
     if($scope.cookieTest){        
         CookieTest.cookie_enabled = true;
-    }
-     
-    $scope.isLogged = false;
-    $scope.user = null;
-    UserService.getUser(function(result){
-        $scope.isLogged = true;
-        $scope.user = result.user;
-    });           
+    }  
     
     // [2] Using the $location.path() function as a $watch expression
     $scope.$watch(function () {
@@ -40,13 +33,18 @@ angular.module('publicApp')
         
     };
     
-    $rootScope.$on('rootScope:emit', function (event, data) {
-       if(data && data.route === 'login' && data.result === true){
-           UserService.getUser(function(result){
-              $scope.isLogged = true;
-              $scope.user = result.user;
-           });           
-       }
+    UserService.getUser(function(result){
+        $scope.isLogged = true;
+        $scope.user = result.user; 
+        AuthenticationService.user = $scope.user; //set the authentication service on page reload
+    });           
+    
+    $rootScope.$on('rootScope:emit', function (event, data) {  
+            //check if auth service for user is set
+            if(AuthenticationService.user){
+                $scope.isLogged = true;
+                $scope.user = AuthenticationService.user;
+            }
     });
     
  });

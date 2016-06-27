@@ -8,7 +8,7 @@
  * Controller of the publicApp
  */
 angular.module('publicApp')
-  .controller('GuestbookCtrl', function ($scope,Guestbook,$cookies,$timeout) {        
+  .controller('GuestbookCtrl', function ($scope,Guestbook,$cookies,$timeout,AuthenticationService) {        
         $scope.newMessage = {};
         $scope.success = false;
         $scope.user = $cookies.get('login');
@@ -28,7 +28,7 @@ angular.module('publicApp')
                     $scope.msgs.unshift({
                         phone: $scope.newMessage.phone,
                         message: $scope.newMessage.message,
-                        user: $cookies.get('login')
+                        user: AuthenticationService.user
                     });
                     $scope.newMessage = {};
                     guestBookModal.hide(); 

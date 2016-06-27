@@ -8,11 +8,17 @@ Answer:
 </p>
 <ol>
   <li>
+     "jquery": "^2.2.4", 
+  </li>
+  <li>
+     "lodash": "^4.13.1", 
+  </li>
+  <li>
      "angular": "^1.4.0",
   </li>
   <li>
      "bootstrap": "^3.2.0", (css & js)
-  </li>
+  </li> 
   <li>
     "angular-cookies": "^1.4.0",
   </li>

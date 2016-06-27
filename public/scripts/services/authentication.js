@@ -3,7 +3,8 @@
 angular.module('publicApp')
 .factory('AuthenticationService', function() {
     var auth = {
-        isLogged: false        
+        isLogged: false,
+        user: null
     };     
     return auth;
 });

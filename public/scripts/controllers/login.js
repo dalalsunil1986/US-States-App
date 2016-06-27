@@ -8,7 +8,7 @@
  * Controller of the publicApp
  */
 angular.module('publicApp')
-  .controller('LoginCtrl', function ($scope, UserService, $location, $rootScope, $timeout,$document,CookieTest) {
+  .controller('LoginCtrl', function ($scope, UserService, $location, $rootScope, $timeout,$document,CookieTest,AuthenticationService) {
         $scope.error = false;
         $scope.cookieTest = CookieTest.cookie_enabled;
         
@@ -16,7 +16,7 @@ angular.module('publicApp')
             UserService.logIn(username, password, function(res){
                 if(res.status !== 401){
                   var referrer = $document.referrer,
-                  params = $document.params;
+                  params = $document.params;                  
                   $rootScope.$emit('rootScope:emit', res); // emit the result to update navbar headers
                   $scope.error = false;
                   //set back referrer data to original values

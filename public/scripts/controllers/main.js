@@ -8,9 +8,13 @@ angular.module('publicApp')
     if($scope.cookieTest){        
         CookieTest.cookie_enabled = true;
     }
-            
-    $scope.isLogged = ($cookies.get('login')?true:false);
-    $scope.user = ($cookies.get('login')?$cookies.get('login'):null);
+     
+    $scope.isLogged = false;
+    $scope.user = null;
+    UserService.getUser(function(result){
+        $scope.isLogged = true;
+        $scope.user = result.user;
+    });           
     
     // [2] Using the $location.path() function as a $watch expression
     $scope.$watch(function () {
@@ -38,8 +42,10 @@ angular.module('publicApp')
     
     $rootScope.$on('rootScope:emit', function (event, data) {
        if(data && data.route === 'login' && data.result === true){
-           $scope.isLogged = true;
-           $scope.user = $cookies.get('login');
+           UserService.getUser(function(result){
+              $scope.isLogged = true;
+              $scope.user = result.user;
+           });           
        }
     });
     

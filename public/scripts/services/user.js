@@ -3,13 +3,12 @@
 angular.module('publicApp')
 .factory('UserService', function(Restangular,AuthenticationService,$cookies) {
     return {
-        logIn: function(username, password, callback) {            
+        logIn: function(username, password, callback) { 
+            var oThis = this;
             if (username !== undefined && password !== undefined) {                             
-                Restangular.all('login').post({user: username, password: password}).then(function(result) {                    
-                    if($cookies.get('login') && $cookies.get('login') === username){
-                       AuthenticationService.isLogged = true;                       
-                       callback(result);                       
-                    }
+                Restangular.all('login').post({user: username, password: password}).then(function(result) {                  
+                    AuthenticationService.isLogged = true;                   
+                    callback(result);                       
                 },function (result) {                   
                     callback(result);
                 });                 
@@ -17,8 +16,17 @@ angular.module('publicApp')
         }, 
         logOut: function(callback) {
             Restangular.one('logout').get().then(function(result) {                    
-                AuthenticationService.isLogged = false;               
+                AuthenticationService.isLogged = false;
+                AuthenticationService.user = null;
                 $cookies.remove('login');
+                callback(result);
+            });           
+        },
+        getUser: function(callback){  
+            if(!$cookies.get('login') && !AuthenticationService.user){
+                return false;
+            }
+            Restangular.one('/secret').get().then(function(result) {            
                 callback(result);
             });           
         }

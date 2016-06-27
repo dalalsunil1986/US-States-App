@@ -1,6 +1,6 @@
 <h3>What URL should be used to access your application?</h3>
 <p>
-  Answer: After starting the node server, you can access the application at http://localhost:8888/
+  Answer: After doing an NPM install and starting the node server, you can access the application at http://localhost:8888/
 </p>
 <h3>What libraries did you use to write your application?</h3>
 <p>

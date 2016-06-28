@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('publicApp')
-  .controller('MainCtrl', function ($scope, $location, UserService, $rootScope, CookieTest, AuthenticationService) {
+  .controller('MainCtrl', function ($scope, $location, UserService, CookieTest, AuthenticationService) {
     
     //check user's browser on page load if cookie is enabled
     $scope.cookieTest = CookieTest.testBrowserForCookie('test','test');
@@ -39,7 +39,7 @@ angular.module('publicApp')
         AuthenticationService.user = $scope.user; //set the authentication service on page reload
     });           
     
-    $rootScope.$on('rootScope:emit', function (event, data) {  
+    $scope.$on('onlogin', function (event, data) {  
             //check if auth service for user is set
             if(AuthenticationService.user){
                 $scope.isLogged = true;

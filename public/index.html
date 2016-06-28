@@ -49,10 +49,10 @@
               </a>            
             </li>
             <li ng-class="{active: activeView === 'login'}">
-              <a href="/#login" ng-show="isLogged === false">
+              <a href="/#login" ng-show="!isLogged">
                 Login
               </a> 
-              <a href="" ng-click="logOut()" ng-show="isLogged === true">
+              <a href="" ng-click="logOut()" ng-show="isLogged">
                 Logout
               </a>              
             </li>
